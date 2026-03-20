@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday – SR</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #ffebee, #fff3e0, #f3e5f5, #e8f5e8, #fff8e1, #fce4ec, #e1f5fe);
+            background-size: 600% 600%;
+            animation: milkMochaBg 12s ease infinite;
+            font-family: 'Poppins', sans-serif;
+            color: #4a2c2a;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        @keyframes milkMochaBg {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* FLOATING MILK & MOCHA BEARS */
+        .floating-bears {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .bear-sticker {
+            position: absolute;
+            font-size: 5rem;
+            animation: floatLove 10s ease-in-out infinite;
+            opacity: 0.85;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .bear-sticker:hover {
+            transform: scale(1.4) rotate(15deg) !important;
+            opacity: 1;
+            z-index: 20;
+            filter: drop-shadow(0 10px 25px rgba(255,193,7,0.6));
+        }
+
+        .bear-sticker:nth-child(1) { top: 15%; left: 8%; animation-delay: 0s; }
+        .bear-sticker:nth-child(2) { top: 25%; right: 10%; animation-delay: 2.5s; font-size: 4rem; }
+        .bear-sticker:nth-child(3) { bottom: 25%; left: 15%; animation-delay: 5s; }
+        .bear-sticker:nth-child(4) { top: 55%; right: 20%; animation-delay: 1.5s; font-size: 4.5rem; }
+        .bear-sticker:nth-child(5) { bottom: 35%; left: 8%; animation-delay: 4s; }
+        .bear-sticker:nth-child(6) { top: 45%; left: 75%; animation-delay: 3s; }
+
+        @keyframes floatLove {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-40px) rotate(8deg); }
+            66% { transform: translateY(-20px) rotate(-8deg); }
+        }
+
+        /* BIG COUNTDOWN */
+        .big-countdown {
+            position: fixed;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            background: linear-gradient(135deg, rgba(255,248,225,0.95), rgba(255,235,238,0.95));
+            backdrop-filter: blur(35px);
+            border-radius: 35px;
+            padding: 30px 50px;
+            box-shadow: 0 25px 70px rgba(255,193,7,0.4);
+            border: 5px solid rgba(255,152,0,0.8);
+            min-width: 550px;
+        }
+
+        .countdown-title {
+            font-family: 'Great Vibes',;
+            font-size: 3rem;
+            background: linear-gradient(45deg, #d84315, #ff8f00, #ff5722);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0 0 25px 0;
+            text-align: center;
+            animation: mochaGlow 2.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes mochaGlow {
+            from { filter: drop-shadow(0 0 15px rgba(255,152,0,0.8)); }
+            to { filter: drop-shadow(0 0 30px rgba(255,87,34,1)); }
+        }
+
+        .countdown-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .countdown-unit {
+            background: linear-gradient(135deg, rgba(255,152,0,0.9), rgba(255,87,34,0.9));
+            border-radius: 25px;
+            padding: 25px 15px;
+            text-align: center;
+            border: 4px solid rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 15px 40px rgba(255,152,0,0.5);
+            transition: all 0.4s ease;
+        }
+
+        .countdown-unit:hover {
+            transform: scale(1.15);
+            box-shadow: 0 25px 60px rgba(255,152,0,0.7);
+        }
+
+        .countdown-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            display: block;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(255,255,255,0.9);
+        }
+
+        .countdown-label {
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-top: 8px;
+            color: rgba(255,255,255,0.98);
+        }
+
+        /* ENVELOPE */
+        .envelope-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 250px;
+        }
+
+        .envelope-closed {
+            width: 450px;
+            height: 320px;
+            background: linear-gradient(135deg, #fff3e0, #fce4ec, #f8bbd9);
+            border-radius: 30px;
+            position: relative;
+            box-shadow: 0 0 60px rgba(255,193,7,0.6);
+            cursor: pointer;
+            transition: all 0.7s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .envelope-closed:hover {
+            transform: translateY(-20px) scale(1.1);
+            box-shadow: 0 0 100px rgba(255,152,0,0.9);
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 72%;
+            background: linear-gradient(135deg, #ffe0b2, #ffcdd2, #f8bbd9);
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            border-radius: 30px 30px 0 0;
+        }
+
+        .envelope-body {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 82%;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 0 0 30px 30px;
+            backdrop-filter: blur(25px);
+        }
+
+        .envelope-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+            padding: 25px;
+        }
+
+        .envelope-title {
+            font-size: 2.5rem;
+            font-family: 'Great Vibes', cursive;
+            margin: 0 0 15px;
+            background: linear-gradient(45deg, #d84315, #ff8f00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 25px rgba(255,255,255,0.9);
+        }
+
+        /* LETTER */
+        .letter-open .envelope-closed {
+            opacity: 0;
+            transform: scale(0.1) rotate(360deg);
+        }
+
+        .letter-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,248,225,0.98), rgba(255,235,238,0.98));
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            opacity: 0;
+            transform: scale(0.6);
+            transition: all 2.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            padding-top: 180px;
+        }
+
+        .letter-open .letter-wrapper {
+            display: flex;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* PHOTO MODAL */
+        .photo-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .photo-modal.active {
+            display: flex;
+            animation: modalPop 0.5s ease-out;
+        }
+
+        @keyframes modalPop {
+            0% { transform: scale(0.3); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .photo-content {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 25px;
+            box-shadow: 0 30px 100px rgba(0,0,0,0.8);
+            position: relative;
+            animation: photoBounce 1s ease-out;
+            border: 8px solid rgba(225, 122, 13, 0.9);
+        }
+
+        @keyframes photoBounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+
+        .photo-title {
+            position: absolute;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(45deg, #ff8f00, #d84315);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.2rem;
+            text-shadow: 0 0 20px rgba(255,255,255,0.9);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 2.5rem;
+            cursor: pointer;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(0,0,0,0.8);
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            transform: scale(1.2) rotate(90deg);
+            color: #ff5722;
+        }
+
+        /* LETTER CONTENT - MILK & MOCHA THEME */
+        .letter-content {
+            max-width: 1100px;
+            max-height: 85vh;
+            padding: 60px;
+            background: linear-gradient(135deg, 
+                rgba(255,248,225,0.9), 
+                rgba(255,235,238,0.9), 
+                rgba(248,187,217,0.9),
+                rgba(232,245,233,0.9));
+            border-radius: 50px;
+            border: 6px solid rgba(255,152,0,0.8);
+            backdrop-filter: blur(35px);
+            text-align: center;
+            overflow-y: auto;
+            box-shadow: 0 50px 120px rgba(255,152,0,0.4);
+            position: relative;
+        }
+
+        .glow-title {
+            font-size: 5.5rem;
+            font-family: 'Great Vibes', cursive;
+            margin: 0 0 30px;
+            background: linear-gradient(45deg, #d84315, #ff8f00, #ff5722, #ffc107, #ff8f00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 600%;
+            animation: mochaRainbow 6s ease infinite;
+            text-shadow: 0 0 70px rgba(255,255,255,1);
+        }
+
+        @keyframes mochaRainbow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .letter-text p {
+            font-size: 1.4rem;
+            line-height: 2;
+            margin: 0 0 30px;
+            opacity: 0.95;
+            color: #4a2c2a;
+        }
+
+        .dear {
+            font-size: 2rem;
+            margin-bottom: 35px;
+            color: #d84315;
+            text-shadow: 0 2px 10px rgba(216,67,21,0.3);
+        }
+
+        .age-section-title {
+            font-size: 2rem;
+            margin: 45px 0 30px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            background: linear-gradient(45deg, #ff5722, #ffc107);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .age-container, .milestone-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin: 35px 0;
+        }
+
+        .age-box {
+            width: 160px;
+            height: 160px;
+            background: linear-gradient(135deg, rgba(255,248,225,0.9), rgba(255,235,238,0.9));
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.4rem;
+            font-weight: 600;
+            text-align: center;
+            border: 6px solid rgba(255,152,0,0.9);
+            cursor: pointer;
+            transition: all 0.6s ease;
+            backdrop-filter: blur(25px);
+            box-shadow: 0 20px 50px rgba(255,152,0,0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .age-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+            transition: left 0.6s;
+        }
+
+        .age-box:hover {
+            transform: scale(1.25) rotate(360deg);
+            box-shadow: 0 35px 80px rgba(255,152,0,0.7);
+            background: linear-gradient(135deg, rgba(255,235,238,1), rgba(255,248,225,1));
+        }
+
+        .age-box:hover::before {
+            left: 100%;
+        }
+
+        .led-banner {
+            margin-top: 50px;
+            font-size: 1.8rem;
+            background: linear-gradient(90deg, #d84315, #ff8f00, #ffc107, #ff5722, #d84315);
+            color: #fff;
+            padding: 35px;
+            border-radius: 30px;
+            box-shadow: 0 0 60px rgba(255,152,0,0.8);
+            overflow: hidden;
+            white-space: nowrap;
+            width: 100%;
+            height: 100px;
+            position: relative;
+            font-family: 'Great Vibes', cursive;
+        }
+
+        @media (max-width: 768px) {
+            .big-countdown { min-width: 380px; padding: 25px 30px; }
+            .countdown-title { font-size: 2.2rem; }
+            .countdown-number { font-size: 2.5rem; }
+            .glow-title { font-size: 4rem; }
+            .envelope-closed { width: 360px; height: 260px; }
+            .age-box { width: 120px; height: 120px; font-size: 1.1rem; }
+            .bear-sticker { font-size: 3.5rem; }
+        }
+
+        /* SHRINK PHOTO MODAL - Smaller popup images */
+.photo-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+}
+
+.photo-modal.active {
+    display: flex;
+    animation: modalPop 0.5s ease-out;
+}
+
+.photo-content {
+    max-width: 90%;           /* ← Keep responsive */
+    max-height: 90%;          /* ← Keep responsive */
+    width: 500spx;             /* ← NEW: Fixed smaller width */
+    height: 800px;            /* ← NEW: Fixed smaller height */
+    border-radius: 25px;
+    box-shadow: 0 30px 100px rgba(0,0,0,0.8);
+    position: relative;
+    animation: photoBounce 1s ease-out;
+    border: 5px solid rgba(255,193,7,0.9);
+}
+
+#photoImage {
+    width: 100% !important;   /* ← Fill container */
+    height: 100% !important;  /* ← Fill container */
+    object-fit: contain;      /* ← Show full image, no crop */
+    border-radius: 17px;
+
+}
+.letter {
+  position: relative;
+}
+
+/* Base style for all stickers */
+.sticker {
+  position: absolute;
+  width: 60px;      /* adjust size */
+  height: auto;
+}
+
+/* Different positions */
+.sticker-left {
+  top: 10px;
+  left: 50px;
+}
+
+.sticker-right {
+  bottom: 120px;
+  right: 70px;
+}
+    </style>
+</head>
+<body>
+    <!-- AUDIO: first song on envelope, second on letter -->
+    <audio id="envelopeMusic" src="Missing you.mp3" loop></audio>
+    <audio id="letterMusic" src="Unfinished Hope.mp3" loop></audio>
+
+    <!-- FLOATING MILK & MOCHA BEARS -->
+    <div class="floating-bears">
+        <div class="bear-sticker" title="Milk & Mocha Big Hug!">🤗🐼</div>
+        <div class="bear-sticker" title="Sweet Mocha Kisses">💋🎀💕</div>
+        <div class="bear-sticker" title="Milk Love Forever">💖🎁✨</div>
+        <div class="bear-sticker" title="Cuddly Bear Hugs">🥰🎉🤗</div>
+        <div class="bear-sticker" title="Mocha Heart Love">💕🎊🎈</div>
+        <div class="bear-sticker" title="Sweet Milk Cuddles">👑💕🤎</div>
+    </div>
+
+    <!-- BIG COUNTDOWN -->
+    <div class="big-countdown" id="bigCountdown">
+        <h2 class="countdown-title">🐻 Tap to play song ✨</h2>
+        <div class="countdown-grid">
+            <div class="countdown-unit">
+                <span class="countdown-number" id="days">00</span>
+                <span class="countdown-label">Days</span>
+            </div>
+            <div class="countdown-unit">
+                <span class="countdown-number" id="hours">00</span>
+                <span class="countdown-label">Hours</span>
+            </div>
+            <div class="countdown-unit">
+                <span class="countdown-number" id="minutes">00</span>
+                <span class="countdown-label">Minutes</span>
+            </div>
+            <div class="countdown-unit">
+                <span class="countdown-number" id="seconds">00</span>
+                <span class="countdown-label">Seconds</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="envelope-container">
+        <!-- ENVELOPE -->
+        <div class="envelope-closed" id="envelopeClosed">
+            <div class="envelope-flap"></div>
+            <div class="envelope-body"></div>
+            <div class="envelope-label">
+                <h2 class="envelope-title"> SR </h2>
+                 <p> It's not that much.. But, Next time i'm sure... i give you a better gift</p>
+                <p style="font-size: 1.2rem; margin: 15px 0 0 0; opacity: 0.9;">click to open</p>
+                   
+            </div>
+        </div>
+
+        <!-- LETTER -->
+        <div class="letter-wrapper" id="letterWrapper">
+            <div class="letter-content">
+                <h1 class="glow-title">🎉Happy Birthday 🎂✨❤️
+                                        Sri Roshini 💕
+                </h1>
+                <div style="font-size: 1.6rem; margin-bottom: 35px; opacity: 0.95; color: #d84315;">
+                    
+                </div>
+                  <!-- Animated stickers -->
+  <img src="A1.gif" class="sticker sticker-left" alt="heart">
+  <img src="A2.gif" class="sticker sticker-right" alt="star">
+
+                <div class="letter-text">
+                    <p class="dear">SRI,</p>
+                    <p> <strong></strong>"Actually ...I don't know what to say 😁 ... I am not good with words as you do......but ... Today is not just another day on the calendar 
+                        , it's the day you were born ... The little girl ... With innocent  smile ... A Pure Happiness... A beautiful Cosmo....the stars feel a little 
+                        closer as if the sky itself is leaning into watching your smile ...But every second from that passes ... The Little girls ... grow stronger, wiser
+                        , even more extraordinary... Some memories  shattered  you to the core ... Which ... You handle it alone without seeking anyone... But it really
+                         makes you know who you are now .... You suffered a lot ... you cried a lot and no one know what exactly you are going through... But  never forget how loved , 
+                         cherished and admired  special moments you've brought into the lives  of people around you and remember to love yourself and forgive yourselves!! 
+                         Because you have the only person who overcome everthing, that you've gone through. Never ruin your beautiful soul for fitting into this ugly society.. Cause</p>
+                        <p></p>You're a 10/10 - because you love people the way they are...🥰
+                        <p></p> You're a 20/10 - because you think twice before hurting someone... 😇
+                        <p></p>You're a 30/10 - because you notice when someone is feeling low...🥹
+                        <p></p>You're a 40/10 - because you give more love than you receive...🤗
+                        <p></p>You're a 50/10 - because you celebrate their small wins like your own...🫶
+                        <p></p>You're a 60/10 - because you never leave when they need you the most...🫠
+                        <p></p> You're a 70/10 - because you know when to priorities yourself...😎
+                        <p></p> You're a 80/10 - because you notice when someone is feeling low...👀
+                        <p></p>You're a 90/10 - because you make them feel worthy and loved...🤫
+                        <p></p>You're a 100/10 -because you always give your best...🫣
+                   <p><strong></strong>May this birthday be a reminder of how far you've come  till now and  I hope every passing moment from now on hold 
+                        soft rains, gentle mornings , warm sunsets, and night full of stars that whisper your name and your dreams breathe freely .  
+                    <p>🤗 <strong></strong>And ... Soon.. someone will come to you ... you'll meet him who will learn your favorite flower, your favorite song, your favorite sweet 
+                        and even if he's too stupid in you... to give you any of them ...it won't matter, because he will have taken the time to know you, As no one else does,only him... 
+                        EARNS YOUR HEART 
+                        And he treated you the way you deserve and respects you and your love ... 
+                        And I am sure you will be loved by him... Who  Cares you as your father cares for you ... 🥰 and you fall for him again who speaks your love language 
+                        so you don't have to spend a lifetime translating your soul ... insted someone With a lot of warm gestures and treasure your 
+                        peace and love and choosing each other even on ordinary days...</p>
+                    
+                    <p style="font-size: 1.6rem; color: #ff5722; font-style: italic; font-weight: 600;">
+                        "Not someone perfect... just someone genuine, steady,humble, kind and touch your heart 💖"
+                        ALL THE BEST!!!
+                        <p> <strong> once again happy birthday SR
+                        </strong></p>
+                        <p>And Even though i am not that much & i know you hated me some point till now for my past
+                             mistakes which place a scar on you...i don't know how to beg your forgiveness... the guilt lingers...and i have no intention 
+                             of hurting you becoz when i feel like i hurt you or you hurted by anyone...it hurts me even more and 
+                            sorry for asking too much till now.. Missed you ...Thankyou</p>
+
+                        <p> - Spider </p>
+                    </p>
+                </div>
+
+                <div class="age-section-title">Your Life time and  Memories so Far ✨</div>
+                <div class="age-container" id="ageContainer"></div>
+
+                <div class="milestone-container">
+                    <div class="age-box" data-age="10">
+                        Age 10<br>✨
+                    </div>
+                    <div class="age-box" data-age="18">
+                        Age 18<br>💖
+                    </div>
+                    <div class="age-box" data-age="20">
+                        Age 20<br>💪
+                    </div>
+                    <div class="age-box" data-age="21">
+                         Age 21<br>✨
+                    </div>
+                </div>
+
+                <div class="led-banner">
+                    <span>💖💕i can't promise to be the best for you but i can assure you, i'll stay for you as long as you want me to 🥰✨</span>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PHOTO MODAL -->
+    <div class="photo-modal" id="photoModal">
+        <div class="photo-content">
+            <div class="photo-title" id="photoTitle"></div>
+            <span class="close-btn" onclick="closePhotoModal()">❌</span>
+            <img id="photoImage" src="" alt="Memory Photo">
+    </div>
+
+    <script>
+        const BIRTHDAY = new Date('2026-03-20T10:35:00').getTime();
+        const body = document.body;
+        const envelopeClosed = document.getElementById('envelopeClosed');
+        const letterWrapper = document.getElementById('letterWrapper');
+
+
+       // AUDIO - Play song 1 immediately on page load
+const envelopeMusic = document.getElementById('envelopeMusic');
+const letterMusic = document.getElementById('letterMusic');
+
+  // Try to play automatically when page loads
+  window.addEventListener('load', () => {
+    const playPromise = envelopeMusic.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Autoplay blocked – will start on first user click instead
+        document.addEventListener('click', firstUserClickPlay, { once: true });
+      });
+    }
+  });
+
+  function firstUserClickPlay() {
+    envelopeMusic.currentTime = 0;
+    envelopeMusic.play();
+}
+
+// When countdown ends, switch to letter music
+function openLetterWithMagic() {
+    body.classList.add('letter-open');
+    document.getElementById('bigCountdown').style.display = 'none';
+
+    // Stop envelope music, start letter music
+    envelopeMusic.pause();
+    envelopeMusic.currentTime = 0;
+    letterMusic.play().catch(e => console.log(e));
+
+    initLetterContent();
+}
+        // COUNTDOWN
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = BIRTHDAY - now;
+
+            if (distance <= 0) {
+                openLetterWithMagic();
+                document.getElementById('bigCountdown').style.display = 'none';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+
+        function forceOpenLetter() {
+            openLetterWithMagic();
+        }
+
+        function openLetterWithMagic() {
+            body.classList.add('letter-open');
+            initLetterContent();
+
+         // switch music: stop envelope song, start letter song
+            if (!envelopeMusic.paused) {
+                envelopeMusic.pause();
+                envelopeMusic.currentTime = 0;
+            }
+            letterMusic.play().catch(e => console.log(e));
+
+            initLetterContent();
+        }
+
+        // PHOTO MODALS
+        const milestonePhotos = {
+            10: {
+                title: "Age 10 –Little Star✨",
+                src: "photo1.jpg"
+            },
+            18: {
+                title: "Age 18 –Beginnings🌸", 
+                src: "photo2.jpg"
+            },
+            20: {
+                title: " Age 20 – Stronger & Wiser💪 ",
+                src: "photo3.jpg"
+            },
+            21: {
+                title: "✨ Age 21 –Shining Queens of Heart!💖",
+                src: "photo4.jpg"
+            }
+        };
+
+        function setupPhotoModals() {
+            document.querySelectorAll('.milestone-container .age-box').forEach(box => {
+                box.addEventListener('click', () => {
+                    const age = box.dataset.age;
+                    const photo = milestonePhotos[age];
+                    if (photo) {
+                        document.getElementById('photoTitle').textContent = photo.title;
+                        document.getElementById('photoImage').src = photo.src;
+                        document.getElementById('photoModal').classList.add('active');
+                    }
+                });
+            });
+        }
+
+        function closePhotoModal() {
+            document.getElementById('photoModal').classList.remove('active');
+        }
+
+        // LETTER CONTENT
+        function initLetterContent() {
+            calculateAge();
+            setInterval(calculateAge, 1000);
+            setupPhotoModals();
+        }
+
+        function calculateAge() {
+            const birthdate = new Date("2004-03-21T00:00:00");
+            const now = new Date();
+            const diff = now - birthdate;
+
+            const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+            const months = Math.floor((diff % (1000 * 60 * 60 * 24 * 365.25)) / (1000 * 60 * 60 * 24 * 30.44));
+            const weeks = Math.floor((diff % (1000 * 60 * 60 * 24 * 30.44)) / (1000 * 60 * 60 * 24 * 7));
+            const days = Math.floor((diff % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            const timeUnits = [
+                { label: "Years", value: years },
+                { label: "Months", value: months },
+                { label: "Weeks", value: weeks },
+                { label: "Days", value: days },
+                { label: "Hours", value: hours },
+                { label: "Minutes", value: minutes },
+                { label: "Seconds", value: seconds }
+            ];
+
+            const container = document.getElementById("ageContainer");
+            container.innerHTML = "";
+            timeUnits.forEach(unit => {
+                const div = document.createElement("div");
+                div.classList.add("age-box");
+                div.innerHTML = `${unit.value}<br><small style="font-size: 0.85rem;">${unit.label}</small>`;
+                container.appendChild(div);
+            });
+        }
+
+        // CLOSE MODAL ON CLICK OUTSIDE
+        document.getElementById('photoModal').addEventListener('click', function(e) {
+            if (e.target === this) closePhotoModal();
+        });
+
+        // ESC KEY
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closePhotoModal();
+        });
+
+        // START
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
